@@ -14,5 +14,5 @@ release_name: HT_KY
 source_url: http://ghost.zool.kyoto-u.ac.jp/datas/HT.Ref.fasta.zip
 organism_biocview: Ciona_robusta
 BSgenomeObjname: Crobusta
-seqnames: sub("\\.fa","",list.files("HT.KY",pattern="\\.fa"))
-seqs_srcdir: HT.KY
+seqnames: sub("\\.fa","",list.files("build",pattern="\\.fa"))
+seqs_srcdir: HT_KY 

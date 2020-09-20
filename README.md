@@ -3,5 +3,5 @@ BSgenome R package for working with the Ciona robusta HT_KY2019 genome. This scr
 # Usage
 ```bash
 cd BSgenome.Cintestinalis.KH.JoinedScaffold
-./forgeGenome.sh
+make
 ```
