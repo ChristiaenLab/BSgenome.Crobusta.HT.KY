@@ -1,6 +1,6 @@
 Package: BSgenome.Crobusta.HT.KY
 Title: Ciona robusta HT_KY
-Version: 0.1
+Version: 0.2
 License: GPL-3
 Description: A BSgenome package for the Ciona robusta genome
 Author: Yutaka Satou, Ryohei Nakamura, Deli Yu, Reiko Yoshida, Mayuko Hamada, Manabu Fujiye, Kanako Hisada, Hiroyuki Takeda and Noriyuki Satoh
@@ -8,11 +8,11 @@ Maintainer: Keira Wiechecki <kaw504@nyu.edu>
 organism: Ciona robusta
 common_name: Vase tunicate
 provider: Ghost
-provider_version: HT_KY
+genome: HT_KY
 release_date: 2019
-release_name: HT_KY
 source_url: http://ghost.zool.kyoto-u.ac.jp/datas/HT.Ref.fasta.zip
 organism_biocview: Ciona_robusta
 BSgenomeObjname: Crobusta
-seqnames: sub("\\.fa","",list.files("build",pattern="\\.fa"))
+circ_seqs: character(0)
 seqs_srcdir: HT_KY 
+seqfile_name: HT.Ref.2bit
