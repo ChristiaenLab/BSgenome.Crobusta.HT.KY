@@ -1,8 +1,8 @@
 {
-  description = "Flake to build + develop tfenrichr R package";
+  description = "Flake to build + develop BSgenome.Crobusta.HT.KY R package";
 
   nixConfig = {
-    bash-prompt = "\[tfenrichr$(__git_ps1 \" (%s)\")\]$ ";
+    bash-prompt = "\[BSgenome.Crobusta.HT.KY$(__git_ps1 \" (%s)\")\]$ ";
   };
 
   inputs = {
@@ -17,22 +17,25 @@
         pkgs  = import nixpkgs { inherit system; config.allowUnfree = true; };
         rpkgs = pkgs.rPackages;
 
+		genome = "HT.Ref.fasta";
+		fasta = pkgs.fetchurl {
+			url  = "http://ghost.zool.kyoto-u.ac.jp/datas/${genome}.zip";
+			#hash = "sha256-0s61chcbizajx1ysv35bvl2hmig4kfdy42vrdnpmba379gv5q600=";
+			hash = "sha256-pRVAVJxrIk0qH+uN7hakQ5sIk6ruj4nnnLYHKHFEoRo=";
+		};
+
         myPkg = rpkgs.buildRPackage rec {
-          name    = "tfenrichr";
-          pname    = "tfenrichr";
-          version = "0.0.4";
+          name    = "BSgenome.Crobusta.HT.KY";
+          pname    = "BSgenome.Crobusta.HT.KY";
+          version = "0.2";
           src     = ./.;
 
           # R‐side dependencies:
           propagatedBuildInputs = [
+              rpkgs.BSgenome
+              rpkgs.BSgenomeForge
 		  	  rpkgs.devtools
-              rpkgs.Biostrings
-              rpkgs.GenomicRanges
-              rpkgs.motifmatchr
-              rpkgs.RcppArmadillo
-              rpkgs.SummarizedExperiment
-			  rpkgs.TFMPvalue
-			  rpkgs.TFBSTools
+			  rpkgs.optparse
           ];
 
           nativeBuildInputs = [
@@ -48,11 +51,16 @@
 			pkgs.icu75
 			pkgs.libpng
 			pkgs.libxml2
+			pkgs.unzip
           ];
 
 		  preBuild = ''
-		  make build
+		  mkdir -p HT_KY
+		  #make BSgenome.Crobusta.HT.KY
 		  #mv build $out
+		  #mv ${fasta}/HT.Ref.fasta .
+		  unzip -o ${fasta}
+		  Rscript forgeGenome.R --fasta ${genome} --dir HT_KY
 		  '';
 
           #installPhase = ''
@@ -83,18 +91,12 @@
         # 2) drop you into a shell for interactive R work:
         devShells = {
           default = pkgs.mkShell {
-            name = "tfenrichr-shell";
+            name = "BSgenome.Crobusta.HT.KY-shell";
 			#packages = [ myR pkgs.git ];
             buildInputs = [
               pkgs.git
               pkgs.R
-              rpkgs.Biostrings
-              rpkgs.GenomicRanges
-              rpkgs.motifmatchr
-              rpkgs.RcppArmadillo
-              rpkgs.SummarizedExperiment
-			  rpkgs.TFMPvalue
-			  rpkgs.TFBSTools
+              rpkgs.BSgenome
 			  pkgs.bzip2
 			  pkgs.curl
               pkgs.gsl

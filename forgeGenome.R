@@ -9,4 +9,4 @@ opts <- parse_args(parser)
 
 ky <- readDNAStringSet(opts$fasta)
 export.2bit(ky,"HT_KY/HT.Ref.2bit")
-forgeBSgenomeDataPkg("DESCRIPTION")
+forgeBSgenomeDataPkg("DESCRIPTION", replace=T)

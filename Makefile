@@ -25,5 +25,5 @@ $(RELEASE):
 clean:
 	rm -rf $(RELEASE)
 	rm -f $(FASTA)
-	rm -f $(FASTA).zip
+	rm -f $(FASTA).zip*
 	rm -rf BSgenome.$(GENOME)
