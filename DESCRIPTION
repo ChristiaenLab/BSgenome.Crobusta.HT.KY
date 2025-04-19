@@ -1,7 +1,7 @@
 Package: BSgenome.Crobusta.HT.KY
 Title: Ciona robusta HT_KY
 Version: 0.2
-License: GPL-3
+License: MIT
 Description: A BSgenome package for the Ciona robusta genome
 Author: Yutaka Satou, Ryohei Nakamura, Deli Yu, Reiko Yoshida, Mayuko Hamada, Manabu Fujiye, Kanako Hisada, Hiroyuki Takeda and Noriyuki Satoh
 Maintainer: Keira Wiechecki <kaw504@nyu.edu>

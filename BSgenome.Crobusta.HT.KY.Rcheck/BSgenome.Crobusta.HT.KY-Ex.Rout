@@ -1,0 +1,154 @@
+
+R version 4.3.1 (2023-06-16) -- "Beagle Scouts"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "BSgenome.Crobusta.HT.KY"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('BSgenome.Crobusta.HT.KY')
+Loading required package: GenomeInfoDb
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    Filter, Find, Map, Position, Reduce, anyDuplicated, aperm, append,
+    as.data.frame, basename, cbind, colnames, dirname, do.call,
+    duplicated, eval, evalq, get, grep, grepl, intersect, is.unsorted,
+    lapply, mapply, match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rank, rbind, rownames, sapply, setdiff, sort, table,
+    tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+Loading required package: stats4
+
+Attaching package: ‘S4Vectors’
+
+The following object is masked from ‘package:utils’:
+
+    findMatches
+
+The following objects are masked from ‘package:base’:
+
+    I, expand.grid, unname
+
+Loading required package: IRanges
+Loading required package: BSgenome
+Loading required package: GenomicRanges
+Loading required package: Biostrings
+Loading required package: XVector
+
+Attaching package: ‘Biostrings’
+
+The following object is masked from ‘package:base’:
+
+    strsplit
+
+Loading required package: rtracklayer
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("package")
+> ### * package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BSgenome.Crobusta.HT.KY
+> ### Title: Ciona robusta HT_KY
+> ### Aliases: BSgenome.Crobusta.HT.KY-package BSgenome.Crobusta.HT.KY
+> ###   Crobusta
+> ### Keywords: package data
+> 
+> ### ** Examples
+> 
+> BSgenome.Crobusta.HT.KY
+| BSgenome object for Vase tunicate
+| - organism: Ciona robusta
+| - provider: Ghost
+| - genome: HT_KY
+| - release date: 2019
+| - 67 sequence(s):
+|     Chr1       Chr10      Chr11      Chr12      Chr13      Chr14     
+|     Chr2       Chr3       Chr4       Chr5       Chr6       Chr7      
+|     Chr8       Chr9       UAContig48 UAContig24 UAContig20 UAContig26
+|     UAContig19 UAContig18 UAContig10 UAContig45 UAContig27 UAContig25
+|     UAContig37 UAContig12 UAContig1  UAContig2  UAContig17 UAContig40
+|     ...        ...        ...        ...        ...        ...       
+|     UAContig31 UAContig33 UAContig13 UAContig51 UAContig42 UAContig38
+|     UAContig47 UAContig53 UAContig22 UAContig28 UAContig16 UAContig21
+|     UAContig29 UAContig50 UAContig30 UAContig41 UAContig44 UAContig39
+|     UAContig43 UAContig34 UAContig35 UAContig52 UAContig49 UAContig36
+|     UAContig32                                                       
+| 
+| Tips: call 'seqnames()' on the object to get all the sequence names, call
+| 'seqinfo()' to get the full sequence info, use the '$' or '[[' operator to
+| access a given sequence, see '?BSgenome' for more information.
+> bsg <- BSgenome.Crobusta.HT.KY
+> head(seqlengths(bsg))
+    Chr1    Chr10    Chr11    Chr12    Chr13    Chr14 
+15704606  8327059  8696443  7853492  4340075  6288713 
+> seqinfo(bsg)
+Seqinfo object with 67 sequences from HT_KY genome:
+  seqnames   seqlengths isCircular genome
+  Chr1         15704606      FALSE  HT_KY
+  Chr10         8327059      FALSE  HT_KY
+  Chr11         8696443      FALSE  HT_KY
+  Chr12         7853492      FALSE  HT_KY
+  Chr13         4340075      FALSE  HT_KY
+  ...               ...        ...    ...
+  UAContig35      41037      FALSE  HT_KY
+  UAContig52      24109      FALSE  HT_KY
+  UAContig49      29720      FALSE  HT_KY
+  UAContig36      40050      FALSE  HT_KY
+  UAContig32      41919      FALSE  HT_KY
+> 
+> 
+> 
+> ## ---------------------------------------------------------------------
+> ## Genome-wide motif searching
+> ## ---------------------------------------------------------------------
+> 
+> ## See the GenomeSearching vignette in the BSgenome software
+> ## package for some examples of genome-wide motif searching using
+> ## Biostrings and the BSgenome data packages:
+> if (interactive())
++     vignette("GenomeSearching", package="BSgenome")
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  3.355 0.116 3.518 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
