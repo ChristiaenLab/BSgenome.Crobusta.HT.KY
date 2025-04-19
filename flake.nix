@@ -58,8 +58,8 @@
 		  mkdir -p HT_KY
 		  #make BSgenome.Crobusta.HT.KY
 		  #mv build $out
-		  #mv ${fasta}/HT.Ref.fasta .
-		  unzip -o ${fasta}
+		  cp ${fasta} ${genome}.zip
+		  unzip -o ${genome}.zip
 		  Rscript forgeGenome.R --fasta ${genome} --dir HT_KY
 		  '';
 
