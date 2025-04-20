@@ -33,15 +33,17 @@
 
           # R‐side dependencies:
           propagatedBuildInputs = [
-              rpkgs.BSgenome
-              rpkgs.BSgenomeForge
-		  	  rpkgs.devtools
-			  rpkgs.optparse
+            rpkgs.BSgenome
+            rpkgs.BSgenomeForge
+		  	rpkgs.devtools
+			rpkgs.optparse
           ];
 
           nativeBuildInputs = [
             pkgs.R
             pkgs.pkg-config
+			pkgs.texlive.combined.scheme-small
+			pkgs.texlivePackages.inconsolata
           ];
 
           # C‑library dependencies
@@ -52,19 +54,18 @@
 			pkgs.icu75
 			pkgs.libpng
 			pkgs.libxml2
-			pkgs.pdflatex
 			pkgs.unzip
           ];
 
-		  preBuild = ''
-		  mkdir -p ht_ky
-		  #make bsgenome.crobusta.ht.ky
-		  #mv build $out
-		  cp ${fasta} ${genome}.zip
-		  unzip -o ${genome}.zip
-		  #Rscript forgeGenome.R --fasta ${genome} --dir HT_KY
-		  ls
-		  '';
+		  #preBuild = ''
+		  #  mkdir -p ht_ky
+		  #  #make bsgenome.crobusta.ht.ky
+		  #  #mv build $out
+		  #  cp ${fasta} ${genome}.zip
+		  #  unzip -o ${genome}.zip
+		  #  #Rscript forgeGenome.R --fasta ${genome} --dir HT_KY
+		  #  ls
+		  #'';
 
 		  buildPhase = ''
 		    mkdir -p HT_KY
@@ -78,8 +79,9 @@
 		  '';
 
           installPhase = ''
-		    R CMD check ${bsgenome}
-            R CMD INSTALL --library=$out ${bsgenome}
+			mkdir -p "$out"
+		    #R CMD check ${bsgenome}
+            R CMD INSTALL --library=$out ${bsgenome}_${version}.tar.gz
           '';
 
           # enable Nix’s R-wrapper so it injects R_LD_LIBRARY_PATH
