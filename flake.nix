@@ -34,13 +34,14 @@
           # R‐side dependencies:
           propagatedBuildInputs = [
             rpkgs.BSgenome
-            rpkgs.BSgenomeForge
-		  	rpkgs.devtools
-			rpkgs.optparse
           ];
 
           nativeBuildInputs = [
             pkgs.R
+            rpkgs.BSgenomeForge
+		  	rpkgs.devtools
+			rpkgs.optparse
+
             pkgs.pkg-config
 			pkgs.texlive.combined.scheme-small
 			pkgs.texlivePackages.inconsolata
@@ -94,11 +95,14 @@
           };
         };
 
-		#myR = pkgs.rWrapper.override {
-		#	packages = with rpkgs; [
-		#		devtools GenomicFeatures GenomicRanges rtracklayer
-		#	];
-		#};
+		myR = pkgs.rWrapper.override {
+# pull in the Bioconductor and CRAN packages you need…
+			packages = with rpkgs; [
+				BSgenome        # this is 1.74.0 from Nixpkgs
+			]
+# …and also inject your own package derivation:
+			++ [ myPkg ];
+		};
 
       in rec {
         # 1) allow `nix build` with no extra attr:
@@ -111,20 +115,34 @@
 			#packages = [ myR pkgs.git ];
             buildInputs = [
               pkgs.git
-              pkgs.R
-              rpkgs.BSgenome
-			  pkgs.bzip2
-			  pkgs.curl
-              pkgs.gsl
-			  pkgs.icu75
-			  pkgs.libpng
-			  pkgs.libxml2
+			  myR
+              #pkgs.R
+              #rpkgs.BSgenome
+			  #pkgs.bzip2
+			  #pkgs.curl
+              #pkgs.gsl
+			  #pkgs.icu75
+			  #pkgs.libpng
+			  #pkgs.libxml2
+			  myPkg
             ];
             shellHook = ''
 source ${pkgs.git}/share/bash-completion/completions/git-prompt.sh
 
+cat > ./.Rprofile << 'EOF'
+.libPaths(c(
+  "${myPkg}",
+  "${rpkgs.BSgenome}/lib/R/library"
+#  .libPaths()
+))
+EOF
+
 export LD_LIBRARY_PATH="${pkgs.libpng.out}/lib:${pkgs.icu75.out}/lib:${pkgs.bzip2.out}/lib:${pkgs.curl.out}/lib:${pkgs.libxml2.out}/lib:${pkgs.gsl.out}/lib:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="${pkgs.libpng.out}/lib:${pkgs.icu75.out}/lib:${pkgs.bzip2.out}/lib:${pkgs.curl.out}/lib/pkgconfig:${pkgs.libxml2.out}/lib/pkgconfig:${pkgs.gsl.out}/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+#export R_LIBS_USER=""
+export R_LIBS_SITE="${myPkg}:${rpkgs.BSgenome}/lib/R/library:$R_LIBS_SITE"
+R -e "library(BSgenome.Crobusta.HT.KY); Crobusta; sessionInfo()"
             '';
           };
         };
