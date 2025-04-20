@@ -1,4 +1,4 @@
-library(BSgenome)
+library(BSgenomeForge)
 library(optparse)
 library(rtracklayer)
 
@@ -9,4 +9,7 @@ opts <- parse_args(parser)
 
 ky <- readDNAStringSet(opts$fasta)
 export.2bit(ky,"HT_KY/HT.Ref.2bit")
-forgeBSgenomeDataPkg("DESCRIPTION", replace=T)
+forgeBSgenomeDataPkg("DESCRIPTION", 
+					 #seqs_srcdir = ".",
+					 #destdir = opts$dir,
+					 replace = T, verbose = T)

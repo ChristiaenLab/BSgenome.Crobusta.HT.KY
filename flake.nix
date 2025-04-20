@@ -18,6 +18,7 @@
         rpkgs = pkgs.rPackages;
 
 		genome = "HT.Ref.fasta";
+		bsgenome = "BSgenome.Crobusta.HT.KY";
 		fasta = pkgs.fetchurl {
 			url  = "http://ghost.zool.kyoto-u.ac.jp/datas/${genome}.zip";
 			#hash = "sha256-0s61chcbizajx1ysv35bvl2hmig4kfdy42vrdnpmba379gv5q600=";
@@ -51,22 +52,35 @@
 			pkgs.icu75
 			pkgs.libpng
 			pkgs.libxml2
+			pkgs.pdflatex
 			pkgs.unzip
           ];
 
 		  preBuild = ''
-		  mkdir -p HT_KY
-		  #make BSgenome.Crobusta.HT.KY
+		  mkdir -p ht_ky
+		  #make bsgenome.crobusta.ht.ky
 		  #mv build $out
 		  cp ${fasta} ${genome}.zip
 		  unzip -o ${genome}.zip
-		  Rscript forgeGenome.R --fasta ${genome} --dir HT_KY
+		  #Rscript forgeGenome.R --fasta ${genome} --dir HT_KY
+		  ls
 		  '';
 
-          #installPhase = ''
-          #  # install the tarball into $out, with dirfns present
-          #  R CMD INSTALL --library=$out .
-          #'';
+		  buildPhase = ''
+		    mkdir -p HT_KY
+		    #make BSgenome.Crobusta.HT.KY
+		    #mv build $out
+		    cp ${fasta} ${genome}.zip
+		    unzip -o ${genome}.zip
+		    Rscript forgeGenome.R --fasta ${genome} --dir HT_KY
+		    ls
+		    R CMD build ${bsgenome}
+		  '';
+
+          installPhase = ''
+		    R CMD check ${bsgenome}
+            R CMD INSTALL --library=$out ${bsgenome}
+          '';
 
           # enable Nix’s R-wrapper so it injects R_LD_LIBRARY_PATH
           dontUseSetLibPath = false;
